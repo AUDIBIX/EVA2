@@ -1,3 +1,6 @@
+from app.DAO.obtener_dao import obtener_un_empleado 
+import pandas as pd
+
 class Persona:
     def __init__(self,id_empleado,nombre,apellido_paterno,apellido_materno,rut,direccion,numero_telefonico,email,fecha_inicio_contrato,salario:int,nivel_acceso,password):
         self.__id_empleado = id_empleado
@@ -71,6 +74,43 @@ class Persona:
     def set_apellido_materno(self,apellido_materno):
         self.__apellido_materno = apellido_materno
     
+
+    def ver_perfil(id_usuario):
+        try:
+            tipo_usuario = obtener_un_empleado(id_usuario)
+            
+            if tipo_usuario is None:
+                print("Usuario no encontrado.")
+                return
+
+            print(">>Perfil de Empleado<<")
+
+            data_del_perfil = {
+                'Nnombre': f"{tipo_usuario["nombre"]} {tipo_usuario["apellido_paterno"]} {tipo_usuario["apellido_materno"]}",
+                'Direccion': f"{tipo_usuario["direccion"]}",
+                'Telefono': f"{tipo_usuario["fono"]}",
+                'Inicio De Contrato': f"{tipo_usuario["fecha_inicio_contrato"]}",
+                'Rol': f"{tipo_usuario["nivel_acceso"]}",
+                'Id del Departamento': f"{tipo_usuario["id_departamento"]}"
+            }
+
+            print (pd.DataFrame([data_del_perfil]))  # Lista de un solo diccionario
+            #print(df.to_string(index=False))  # Mostrar el DataFrame sin el índice
+
+        except Exception as e:
+            print(f"Error al mostrar la información: {e}")  
+            #A.ver_info(usuario["id_empleado"])
+
+
+
+
+
+
+
+
+
+
+
     def __str__(self):
         txt = f"Nombre completo: {self.__nombre} {self.__apellido_paterno} {self.__apellido_materno}\n"
         txt += f"Dirección: {self.__direccion}\n"
@@ -80,3 +120,6 @@ class Persona:
         txt += f"Salario: {self.__salario}\n"
         txt += f"Nivel de acceso: {self.__nivel_acceso}\n"
         return txt
+    
+
+
