@@ -16,10 +16,10 @@ class Gerente(Persona):
         txt+= super().__str__
         return txt
     
-    def levantarSolicitud(id_gerente,id_empleado,descripcion):
+    def levantarSolicitudEmpleadoDepartamento(id_gerente,id_empleado,descripcion):
         pass
 
-    def designarEmpleado(id_empleado,accion,id_proyecto):
+    def designarEmpleadoProyecto(id_empleado,accion,id_proyecto):
         pass
 
     def editarProyecto(id_proyecto,atributo,valor):

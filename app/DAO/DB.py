@@ -29,5 +29,5 @@ class Conexion:
     def disconnect(self):
         self.__cursor.close()
         self.__database.close()
-        
+    
 conexion = Conexion(c.host,c.user,c.password,c.database)

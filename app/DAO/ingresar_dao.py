@@ -1,27 +1,42 @@
 from app.DAO.DB import conexion
 from app.DTO.Empleado import Empleado
 from app.DTO.Departamento import Departamento
+from app.DAO.obtener_dao import obtener_id
 
-def ingresar_empleado(objeto_empleado:Empleado):
+def ingresar_credenciales_empleado(rut,psw):
+    id = obtener_id(rut)
+    query = f"INSERT INTO password(id_empleado,psw) values({id["id_empleado"]},{psw})"
+    try:
+        conexion.get_cursor().execute(query)
+        return True
+    except Exception as e:
+        print(f"Error al ingresar empleado: {e}")
+        conexion.rollback()
+        return False
+
+def ingresar_empleado(nombre,apellido_paterno,apellido_materno,direccion,fono,salario,nivel_acceso,rut,email,psw):
     query = "INSERT INTO `empleado`("
     query += "`nombre`,`apellido_paterno`,`apellido_materno`,"
     query += "`direccion`,`fono`,"
     query += "`salario`, `nivel_acceso`,"
-    query += "`password`, `rut`, `id_departamento`, `email`)"
+    query += "`rut`, `email`)"
     
-    query += f"VALUES ('{objeto_empleado.get_nombre()}','{objeto_empleado.get_apellido_paterno()}','{objeto_empleado.get_apellido_materno()}',"
-    query += f"'{objeto_empleado.get_direccion()}','{objeto_empleado.get_numero_telefonico()}',"
-    query += f"'{objeto_empleado.get_salario()}','{objeto_empleado.get_nivel_acceso()}',"
-    query += f"'{objeto_empleado.get_password()}','{objeto_empleado.get_rut()}',Null,'{objeto_empleado.get_email()}')"
+    query += f"VALUES ('{nombre}','{apellido_paterno}','{apellido_materno}',"
+    query += f"'{direccion}','{fono}',"
+    query += f"'{salario}','{nivel_acceso}',"
+    query += f"'{rut}','{email}')"
     
     try:
         conexion.get_cursor().execute(query)
-        conexion.commit()
-        return True
+        if ingresar_credenciales_empleado(rut,psw):
+            conexion.commit()
+            return True
+        else:
+            conexion.rollback()
     except Exception as e:
-        print(f"Error al ingresar el empleado: {e}")
+        print(f"Error al ingresar empleado: {e}")
         conexion.rollback()
-    return False
+        return False
 
 def ingresar_departamento(objeto_depto:Departamento):
     query = "INSERT INTO `departamento`("
@@ -33,4 +48,4 @@ def ingresar_departamento(objeto_depto:Departamento):
         return True
     except Exception as e:
         print(f"Error al crear el departamento: {e}")
-    return False
+        return False

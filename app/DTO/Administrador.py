@@ -4,6 +4,7 @@ from app.DTO.Departamento import Departamento
 from app.DAO.ingresar_dao import ingresar_empleado,ingresar_departamento
 from app.DAO.editar_dao import departamento_editar_descripcion, departamento_editar_estado, departamento_editar_id_empleado, departamento_editar_nombre
 from app.DAO.obtener_dao import obtener_departamentos,obtener_informacion_departamento
+from app.DTO.Utiles import print_opciones
 from random import randint
 from pandas import DataFrame
 
@@ -19,17 +20,17 @@ class Administrador(Persona):
         rut = input("Ingrese rut:\n> ")
         email = f"{nombre.lower()}.{apellido_paterno.lower()}{randint(0,99)}@ecotech.cl"
         salario = input("Ingrese salario:\n> ")
-        question = input("Desea seleccionar el nivel de acceso? s/n\n Por defecto es empleado\n> ")
+        question = input("Desea asignar el nivel de acceso? s/n\n> ")
         if question == "s":
-            question = input("Ingrese el nivel de acceso (e / g / a):\n> ")
-            if question == "e":
+            print("Ingrese el nivel de acceso:")
+            print_opciones(["Empleado","Gerente","Administrador"])
+            question = input("> ")
+            if question == "1":
                 nivel_acceso = "empleado"
-            elif question == "g":
+            elif question == "2":
                 nivel_acceso = "gerente"
-            elif question == "a":
+            elif question == "3":
                 nivel_acceso = "administrador"
-            else:
-                nivel_acceso = "empleado"
         else:
             nivel_acceso = "empleado"
         question = input("Desea agregar una dirección? s/n\n> ")
@@ -40,17 +41,17 @@ class Administrador(Persona):
         fono = "Null"
         if question == "s":
             fono = input("Ingrese fono:\n> ")
-        objeto_empleado = Empleado(1,nombre,apellido_paterno,apellido_materno,rut,direccion,fono,email,1,salario,nivel_acceso,password="12345")
-        if ingresar_empleado(objeto_empleado):
+        if ingresar_empleado(nombre,apellido_paterno,apellido_materno,direccion,fono,salario,nivel_acceso,rut,email,psw="12345"):
             print("Empleado creado correctamente")
         
 
-    def crearDepartamento(self): #Faltan validaciones
+    def crearDepartamento(): #Faltan validaciones
         print(" >> Creacion de departamento <<")
         nombre = input("Ingrese nombre:\n> ")
         descripcion = input("Ingrese descripcion:\n> ")
         id_empleado = None
         question = input("Desea agregar un gerente a cargo? s/n\n> ")
+    
         if question == "s":
             id_empleado = input("Ingrese el ID del gerente:\n> ")
         print("Ingrese el estado inicial del departamento:")
