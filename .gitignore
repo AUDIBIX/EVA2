@@ -1,2 +1,4 @@
 
 *.pyc
+/app/DTO/__pycache__
+/app/DAO/__pycache__

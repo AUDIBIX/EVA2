@@ -12,12 +12,29 @@ def main():
             if usuario["nivel_acceso"] == "administrador":
                 print(f" >> Bienvenido {usuario['nombre']} {usuario['apellido_paterno']}! <<")
                 print(" Que desea hacer a continuación?")
-                opciones = ["Registrar Empleado", "Crear Departamento", "Editar Departamento","Cerrar sesión","Salir"]
+                opciones = ["Empleados", "Departamentos", "Editar Departamento","Cerrar sesión","Salir"]
                 for indice , opcion in enumerate(opciones, start=1):
                     print(f"{indice}. {opcion}")
                 accion = input("> ")
                 if accion == "1":
-                    A.registrarEmpleado()
+                    while True:
+                        opciones = ["Registrar empleado","Mostrar empleados","Editar empleado","Eliminar empleado/s","Salir"]
+                        print("Que desea hacer?")
+                        for numero,opcion in enumerate(opciones,start=1):
+                            print(f"{numero}. {opcion}")
+                        accion = input("> ")
+                        if accion == "1":
+                            A.registrarEmpleado()
+                        elif accion == "2":
+                            A.mostrar_empleados()
+                        elif accion == "3":
+                            A.editar_empleado()
+                        elif accion == "4":
+                            pass
+                        elif accion == "5":
+                            break
+                        else:
+                            print("Porfavor seleccione una opcion valida")
                 elif accion == "2":
                     A.crearDepartamento()
                 elif accion == "3":

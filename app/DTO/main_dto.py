@@ -3,7 +3,7 @@ from app.DAO.obtener_dao import verificar_login
 def login():
     intentos = 3
     while intentos > 0:
-        print("Ingrese ID de empleado:")
+        print("Ingrese su ID:")
         usuario = input("> ")
         print("Ingrese contraseña:")
         contrasena = input("> ")

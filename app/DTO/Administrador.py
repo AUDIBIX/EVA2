@@ -3,7 +3,7 @@ from app.DTO.Empleado import Empleado
 from app.DTO.Departamento import Departamento
 from app.DAO.ingresar_dao import ingresar_empleado,ingresar_departamento
 from app.DAO.editar_dao import departamento_editar_descripcion, departamento_editar_estado, departamento_editar_id_empleado, departamento_editar_nombre
-from app.DAO.obtener_dao import obtener_departamentos,obtener_informacion_departamento,obtener_gerentes
+from app.DAO.obtener_dao import obtener_departamentos,obtener_informacion_departamento,obtener_gerentes,obtener_empleados
 from app.DTO.Utiles import print_opciones
 from random import randint
 from pandas import DataFrame
@@ -43,6 +43,38 @@ class Administrador(Persona):
             fono = input("Ingrese fono:\n> ")
         if ingresar_empleado(nombre,apellido_paterno,apellido_materno,direccion,fono,salario,nivel_acceso,rut,email,psw="12345"):
             print("Empleado creado correctamente")
+            
+    
+    def mostrar_empleados():
+        empleados = obtener_empleados()
+        cambios = {
+            "id_empleado": "ID",
+            "nombre": "Nombre",
+            "apellido_paterno": "Apellido paterno",
+            "apellido_materno": "Apellido materno",
+            "direccion": "Direccion",
+            "fono": "Numero telefonico",
+            "fecha_inicio_contrato": "Inicio de contrato",
+            "salario": "Salario",
+            "nivel_acceso": "Rol",
+            "rut": "Run",
+            "id_departamento": "ID de departamento",
+            "email": "E-Mail"
+        }
+        for empleado in empleados:
+            for clave_antigua,clave_nueva in cambios.items():
+                empleado[clave_nueva] = empleado.pop(clave_antigua)
+        print("    >> Empleados <<")
+        print(DataFrame(empleados))
+        
+        
+    def editar_empleado():
+        Administrador.mostrar_empleados()
+        print("Ingrese el ID del empleado a editar:")
+        id = input("> ")
+        
+        
+        
         
 
     def crearDepartamento(): #Faltan validaciones

@@ -11,7 +11,7 @@ def obtener_id(rut):
     return
 
 def verificar_login(id,password):
-    if usuario := obtener_informacion_usuario(id):
+    if usuario := obtener_un_empleado(id):
         query = f"SELECT psw FROM password WHERE id_empleado = {id}"
         try:
             conexion.get_cursor().execute(query)
@@ -22,7 +22,7 @@ def verificar_login(id,password):
             return usuario
     return
 
-def obtener_informacion_usuario(id_empleado):
+def obtener_un_empleado(id_empleado):
     try:
         query = f"SELECT * FROM `empleado` WHERE id_empleado = {id_empleado}"
         conexion.get_cursor().execute(query)
@@ -31,6 +31,16 @@ def obtener_informacion_usuario(id_empleado):
             return usuario
     except Exception as e:
         print(f"Error al obtener la informacion del usuario: {e}")
+    return
+
+def obtener_empleados():
+    query = "SELECT * FROM empleado"
+    try:
+        conexion.get_cursor().execute(query)
+        if lista_empleados := conexion.fetchall():
+            return lista_empleados
+    except Exception as e:
+        print(f"Error al recuperar empleados: {e}")
     return
 
 def obtener_departamentos():
