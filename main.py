@@ -30,7 +30,7 @@ def main():
                         elif accion == "3":
                             A.editar_empleado()
                         elif accion == "4":
-                            pass
+                            A.eliminar_empleado()
                         elif accion == "5":
                             break
                         else:
