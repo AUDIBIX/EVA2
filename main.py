@@ -19,7 +19,7 @@ def main():
                 if accion == "1":
                     while True:
                         print("Que desea hacer?")
-                        print_opciones(["Registrar empleado","Mostrar empleados","Editar empleado","Eliminar empleado/s","Salir"])
+                        print_opciones(["Registrar empleado","Mostrar empleados","Editar empleado","Eliminar empleado/s","Salir","Prueba editar perfil"])
                         accion = input("> ")
                         if accion == "1":
                             A.registrarEmpleado()
@@ -31,6 +31,8 @@ def main():
                             A.eliminar_empleado()
                         elif accion == "5":
                             break
+                        elif accion == "6":
+                            A.editar_perfil(usuario["id_empleado"]) #prueba editar perfil
                         else:
                             print("Porfavor seleccione una opcion valida")
                             

@@ -1,5 +1,7 @@
-from app.DAO.obtener_dao import obtener_un_empleado 
+from app.DAO.obtener_dao import obtener_un_empleado,verificar_login
 from pandas import DataFrame as DF
+from app.DTO.Utiles import print_opciones
+from app.DAO.editar_dao import editar_usuario,editar_psw
 
 class Persona:
     def __init__(self,id_empleado,nombre,apellido_paterno,apellido_materno,rut,direccion,numero_telefonico,email,fecha_inicio_contrato,salario:int,nivel_acceso,password):
@@ -102,11 +104,70 @@ class Persona:
             #A.ver_info(usuario["id_empleado"])
 
 
+    def editar_perfil(id_empleado): #contraseña,direccion,fono
+        try:
+            tipo_usuario = obtener_un_empleado(id_empleado)
+            
+            if tipo_usuario is None:
+                print("Usuario no encontrado.")
+                return
+            
+            print(f"Que datos desea Modificar >>{tipo_usuario["nombre"]} {tipo_usuario["apellido_paterno"]} {tipo_usuario["apellido_materno"]}<<")
+
+            print_opciones(["Contraseña","Direccion","Telefono"])
+            question = input("> ")
+            if question == '1':
+                print("Cambio de Contraseña")
+
+                try:
+                    contraseña_actual = input("Ingrese su contraseña actual:\n> ")
+
+                    if not verificar_login(id_empleado, contraseña_actual):
+                        print("La contraseña actual no es correcta.")
+                        return False
+
+                    nueva_contraseña = input("Ingrese su nueva contraseña:\n> ")
+                    confirmar_contraseña = input("Confirme su nueva contraseña:\n> ")
+
+                    if nueva_contraseña != confirmar_contraseña:
+                        print("Las nuevas contraseñas no coinciden.")
+                        return False
+
+                    if editar_psw(id_empleado, nueva_contraseña):
+                        print(">> Contraseña cambiada con éxito <<")
+                        return True
+                    else:
+                        print("Error al cambiar la contraseña.")
+                        return False
+
+                except Exception as e:
+                    print(f"Error al cambiar la contraseña: {e}")
+                    return False
 
 
+            elif question == '2':
+                print(f"Dirección actual: >>{tipo_usuario['direccion']}<<")
+
+                nueva_direccion = input("Ingrese nueva dirección:\n> ")
+
+                if editar_usuario(id_empleado, "direccion", f"'{nueva_direccion}'"):
+                    print("Dirección modificada con éxito.")
 
 
+            elif question == '3':
+                print(f"Teléfono actual: >>{tipo_usuario['fono']}<<")
 
+                nuevo_telefono = input("Ingrese nuevo teléfono:\n> ")
+
+                if editar_usuario(id_empleado, "fono", f"'{nuevo_telefono}'"):
+                    print("Teléfono modificado con éxito.")
+
+
+            else:
+                print("Opción no válida.")
+
+        except Exception as e:
+            print(f"Error al mostrar la información: {e}")
 
 
 
