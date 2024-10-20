@@ -36,7 +36,7 @@ def ingresar_empleado(nombre,apellido_paterno,apellido_materno,direccion,fono,sa
     except Exception as e:
         print(f"Error al ingresar empleado: {e}")
         conexion.rollback()
-        return False
+    return
 
 def ingresar_departamento(objeto_depto:Departamento):
     query = "INSERT INTO `departamento`("
@@ -48,4 +48,5 @@ def ingresar_departamento(objeto_depto:Departamento):
         return True
     except Exception as e:
         print(f"Error al crear el departamento: {e}")
-        return False
+        conexion.rollback()
+    return
