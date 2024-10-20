@@ -1,5 +1,5 @@
 from app.DAO.obtener_dao import obtener_un_empleado 
-import pandas as pd
+from pandas import DataFrame as DF
 
 class Persona:
     def __init__(self,id_empleado,nombre,apellido_paterno,apellido_materno,rut,direccion,numero_telefonico,email,fecha_inicio_contrato,salario:int,nivel_acceso,password):
@@ -94,7 +94,7 @@ class Persona:
                 'Id del Departamento': f"{tipo_usuario["id_departamento"]}"
             }
 
-            print (pd.DataFrame([data_del_perfil]))  # Lista de un solo diccionario
+            print (DF([data_del_perfil]))  # Lista de un solo diccionario
             #print(df.to_string(index=False))  # Mostrar el DataFrame sin el índice
 
         except Exception as e:

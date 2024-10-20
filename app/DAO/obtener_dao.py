@@ -44,7 +44,7 @@ def obtener_empleados():
     return
 
 def obtener_departamentos():
-    query = "SELECT `id_departamento`, `nombre` FROM `departamento`"
+    query = "SELECT * FROM departamento"
     try:
         conexion.get_cursor().execute(query)
         departamentos = conexion.fetchall()
@@ -60,7 +60,7 @@ def obtener_informacion_departamento(id_departamento):
         depto = conexion.fetchone()
         return {
             "ID": depto["id_departamento"],
-            "Gerente": depto["id_empleado"],
+            "Gerente": depto["id_gerente"],
             "Nombre": depto["nombre"],
             "Descripción": depto["descripcion"],
             "Estado": depto["estado"]
