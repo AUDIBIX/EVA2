@@ -12,5 +12,3 @@ def ingresar_proyecto(objeto_proyecto:Proyecto):
     except Exception as e:
         print(f"Error al crear el Proyecto: {e}")
         conexion.rollback
-    
-    

@@ -1,7 +1,9 @@
 from app.DTO.Persona import Persona
 from app.DTO.Departamento import Departamento
+from app.DTO.Proyecto import Proyecto
 from app.DAO.crud_empleados import ingresar_empleado,obtener_empleados,obtener_gerentes,eliminar_usuario
 from app.DAO.crud_departamentos import ingresar_departamento,obtener_departamentos,obtener_un_departamento,editar_departamento
+from app.DAO.crud_proyectos import ingresar_proyecto
 from app.DTO.Utiles import print_opciones
 from random import randint
 from pandas import DataFrame
@@ -121,7 +123,7 @@ class Administrador(Persona):
         print(DataFrame(departamentos))
         
 
-    def editarDepartamento(): #Faltan validaciones
+    def editarDepartamento():
         Administrador.mostrar_departamentos()
         id_departamento = input("Ingrese el ID\n> ")
         
@@ -161,9 +163,9 @@ class Administrador(Persona):
         pass
 
     
-    def removerDepartamento(id_departamento):
+    def eliminarDepartamento(id_departamento):
         pass
-
+    
     
     def aprobarSolicitud(id_solicitud):
         pass
@@ -173,9 +175,36 @@ class Administrador(Persona):
         pass
 
     
-    def crearProyecto(nombre,descripcion):
-        pass
+    def crearProyecto():
+        mostrar_depto = obtener_departamentos()
+        print(">> Departamentos")
+        print(DataFrame(mostrar_depto))
 
+        id_depto = input("Seleccione el ID del departamento para crear el Proyecto\n > ")
+
+        print(">> Creacion de Proyecto <<")
+        id_depto = None
+        nombre = input("Ingrese nombre:\n> ")
+        descripcion = input("Ingrese descripcion:\n> ")
+        estado = input("Ingrese estado:\n> ")
+
+        print("Ingrese el estado inicial del proyecto:")
+        print_opciones(["Inactivo","Activo"])
+        estado = input("> ")
+        if estado == "1":
+            estado = "Inactivo"
+        elif estado == "2":
+            estado = "Activo"
+        else:
+            estado = None
+        objeto_proyecto = Proyecto(None,nombre,id_depto,descripcion,estado)
+        if ingresar_proyecto(objeto_proyecto):
+            print("Departamento creado correctamente")
+
+    
+    def mostrarProyecto():
+        pass
+    
     
     def editarProyecto(id_proyecto,campo,valor):
         pass
@@ -183,6 +212,7 @@ class Administrador(Persona):
     
     def eliminarProyecto(id_proyecto):
         pass
+
 
     def __str__(self):
         txt = f" >> Administrador {self.__id_empleado} <<\n"

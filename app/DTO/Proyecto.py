@@ -59,32 +59,4 @@ class Proyecto():
         txt += f"Fecha de inicio: {self.__fecha_inicio}\n"
         txt += f"Estado: {self.__estado}\n"
 
-    
-    def crear_proyecto():
-        mostrar_depto = obtener_departamentos()
-        print(">> Departamentos")
-        print(DataFrame(mostrar_depto))
-
-        id_depto = input("Seleccione el ID del departamento para crear el Proyecto\n > ")
-
-        print(">> Creacion de Proyecto <<")
-        id_depto = None
-        nombre = input("Ingrese nombre:\n> ")
-        descripcion = input("Ingrese descripcion:\n> ")
-        estado = input("Ingrese estado:\n> ")
-
-        print("Ingrese el estado inicial del proyecto:")
-        print("1. Inactivo")
-        print("2. Activo")
-        estado = input("> ")
-        if estado == "1":
-            estado = "Inactivo"
-        elif estado == "2":
-            estado = "Activo"
-        else:
-            estado = None
-        objeto_proyecto = Proyecto(None,nombre,id_depto,descripcion,estado)
-        if ingresar_proyecto(objeto_proyecto):
-            print("Departamento creado correctamente")
-
         
