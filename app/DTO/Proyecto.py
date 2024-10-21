@@ -1,10 +1,20 @@
+from app.DAO.crud_departamentos import obtener_departamentos
+from pandas import DataFrame
+from DAO.crud_proyectos import ingresar_proyecto
 class Proyecto():
-    def __init__(self,id_proyecto,nombre,descripcion,fecha_inicio,estado):
+    def __init__(self,id_departamento,id_proyecto,nombre,descripcion,fecha_inicio,estado):
+        self.__id_departamento = id_departamento
         self.__id_proyecto = id_proyecto
         self.__nombre = nombre
         self.__descripcion = descripcion
         self.__fecha_inicio = fecha_inicio
         self.__estado = estado
+
+    def get_id_departamento(self):
+        return self.__id_departamento
+    
+    def set_id_departamento(self,id_proyecto):
+        self.__id_departamento = id_proyecto
 
     def get_id_proyecto(self):
         return self.__id_proyecto
@@ -48,3 +58,33 @@ class Proyecto():
         txt += f"Descripción: {self.__descripcion}\n"
         txt += f"Fecha de inicio: {self.__fecha_inicio}\n"
         txt += f"Estado: {self.__estado}\n"
+
+    
+    def crear_proyecto():
+        mostrar_depto = obtener_departamentos()
+        print(">> Departamentos")
+        print(DataFrame(mostrar_depto))
+
+        id_depto = input("Seleccione el ID del departamento para crear el Proyecto\n > ")
+
+        print(">> Creacion de Proyecto <<")
+        id_depto = None
+        nombre = input("Ingrese nombre:\n> ")
+        descripcion = input("Ingrese descripcion:\n> ")
+        estado = input("Ingrese estado:\n> ")
+
+        print("Ingrese el estado inicial del proyecto:")
+        print("1. Inactivo")
+        print("2. Activo")
+        estado = input("> ")
+        if estado == "1":
+            estado = "Inactivo"
+        elif estado == "2":
+            estado = "Activo"
+        else:
+            estado = None
+        objeto_proyecto = Proyecto(None,nombre,id_depto,descripcion,estado)
+        if ingresar_proyecto(objeto_proyecto):
+            print("Departamento creado correctamente")
+
+        
