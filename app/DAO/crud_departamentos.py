@@ -4,7 +4,7 @@ from app.DTO.Departamento import Departamento
 
 def ingresar_departamento(objeto_depto:Departamento):
     query = "INSERT INTO `departamento`("
-    query += f"`id_empleado`, `nombre`, `descripcion`, `estado`) "
+    query += f"`id_gerente`, `nombre`, `descripcion`, `estado`) "
     query += f"VALUES ('{objeto_depto.get_id_gerente()}','{objeto_depto.get_nombre()}','{objeto_depto.get_descripcion()}','{objeto_depto.get_estado()}')"
     try:
         conexion.get_cursor().execute(query)
