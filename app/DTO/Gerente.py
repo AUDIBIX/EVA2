@@ -1,4 +1,4 @@
-from Persona import Persona
+from app.DTO.Persona import Persona
 
 class Gerente(Persona):
     def __init__(self, id_empleado, nombre, apellido_paterno, apellido_materno, rut, direccion, numero_telefonico, email, fecha_inicio_contrato, salario, nivel_acceso, password):

@@ -1,5 +1,6 @@
 from app.DTO.main_dto import login
 from app.DTO.Administrador import Administrador as A
+from app.DTO.Gerente import Gerente as G
 from app.DAO.DB import conexion
 from app.DTO.Utiles import print_opciones
 
@@ -10,17 +11,16 @@ def main():
         usuario = login()
         sesion = True
         while sesion == True:
+            print(f" >> Bienvenido {usuario.get_nombre()} {usuario.get_apellido_paterno()}! <<")
             if usuario.get_nivel_acceso() == "administrador":
-                print(f" >> Bienvenido {usuario.get_nombre()} {usuario.get_apellido_paterno()}! <<")
                 print(" Que desea hacer a continuación?")
-                opciones = ["Perfil","Empleados", "Departamentos", "Cerrar sesión", "Salir"]
-                print_opciones(opciones)
+                print_opciones(["Perfil","Empleados", "Departamentos", "Cerrar sesión", "Salir"])
                 accion = input("> ")
                 
                 if accion == "1":
                     while True:
                         print("Que desea hacer?")
-                        print_opciones(["Mostrar perfil","Editar perfil","Salir","PRUEBA"])
+                        print_opciones(["Mostrar perfil","Editar perfil","Salir"])
                         accion = input("> ")
                         if accion == "1":
                             A.ver_perfil(usuario.get_id_empleado())
@@ -28,8 +28,6 @@ def main():
                             A.editar_perfil(usuario.get_id_empleado())
                         elif accion == "3":
                             break
-                        elif accion == "4": #prueba
-                            A.crearProyecto
                         else:
                             print("Porfavor seleccione una opcion valida")
                 
@@ -50,7 +48,7 @@ def main():
                             break
                         else:
                             print("Porfavor seleccione una opcion valida")
-                            
+                
                 elif accion == "3":
                     while True:
                         print("Que desea hacer?")
@@ -63,23 +61,51 @@ def main():
                         elif accion == "3":
                             A.editarDepartamento()
                         elif accion == "4":
-                            pass
+                            A.eliminarDepartamento()
                         elif accion == "5":
                             break
                         else:
                             print("Porfavor seleccione una opcion valida")
-                        
+                
                 elif accion == "4":
                     print("Cerrando sesión...")
                     sesion = False
-                    
+                
                 elif accion == "5":
                     print("Finalizando el programa...")
                     conexion.disconnect()
                     sesion = False
                     programa = False
-                
+
                 else:
                     print("Porfavor seleccione una opcion valida")
+                    
+            elif usuario.get_nivel_acceso() == "gerente":
+                print(" Que desea hacer a continuación?")
+                print_opciones(["Ver perfil","Levantar solicitud de asignacion de empleado a departamento","Designar un empleado a un proyecto","Editar un proyecto","Cerrar sesion","Salir"])
+                accion = input("> ")
+                
+                if accion == "1":
+                    print_opciones(["Mostrar perfil","Editar perfil","Salir"])
+                    if accion == "1":
+                        G.ver_perfil(usuario.get_id_empleado())
+                    elif accion == "2":
+                        G.editar_perfil(usuario.get_id_empleado())
+                    elif accion == "3":
+                        break
+                    else:
+                        print("Porfavor selecccione una opcion valida")
+                
+                elif accion == "2":
+                    G.levantarSolicitudEmpleadoDepartamento()
+                elif accion == "3":
+                    G.designarEmpleadoProyecto()
+                elif accion == "4":
+                    G.editarProyecto()
+                elif accion == "5":
+                    break
+                else:
+                    print("Seleccione una opcion valida")
+                
     
 main()

@@ -186,18 +186,16 @@ class Administrador(Persona):
         id_depto = None
         nombre = input("Ingrese nombre:\n> ")
         descripcion = input("Ingrese descripcion:\n> ")
-        estado = input("Ingrese estado:\n> ")
-
         print("Ingrese el estado inicial del proyecto:")
-        print_opciones(["Inactivo","Activo"])
+        print_opciones(["Activo","Inactivo"])
         estado = input("> ")
         if estado == "1":
-            estado = "Inactivo"
-        elif estado == "2":
             estado = "Activo"
+        elif estado == "2":
+            estado = "Inactivo"
         else:
             estado = None
-        objeto_proyecto = Proyecto(None,nombre,id_depto,descripcion,estado)
+        objeto_proyecto = Proyecto(id_depto,None,nombre,descripcion,None,estado)
         if ingresar_proyecto(objeto_proyecto):
             print("Departamento creado correctamente")
 

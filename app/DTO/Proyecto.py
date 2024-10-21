@@ -1,6 +1,3 @@
-from app.DAO.crud_departamentos import obtener_departamentos
-from pandas import DataFrame
-from DAO.crud_proyectos import ingresar_proyecto
 class Proyecto():
     def __init__(self,id_departamento,id_proyecto,nombre,descripcion,fecha_inicio,estado):
         self.__id_departamento = id_departamento
