@@ -5,13 +5,13 @@ from app.DTO.Utiles import print_opciones
 
 def main():
     programa = True
-    sesion = True
     while programa == True:
         print(" >> Inicio de Sesion <<")
         usuario = login()
+        sesion = True
         while sesion == True:
-            if usuario["nivel_acceso"] == "administrador":
-                print(f" >> Bienvenido {usuario['nombre']} {usuario['apellido_paterno']}! <<")
+            if usuario.get_nivel_acceso() == "administrador":
+                print(f" >> Bienvenido {usuario.get_nombre()} {usuario.get_apellido_paterno()}! <<")
                 print(" Que desea hacer a continuación?")
                 opciones = ["Perfil","Empleados", "Departamentos", "Cerrar sesión", "Salir"]
                 print_opciones(opciones)
@@ -23,9 +23,9 @@ def main():
                         print_opciones(["Mostrar perfil","Editar perfil","Salir"])
                         accion = input("> ")
                         if accion == "1":
-                            A.ver_perfil(usuario["id_empleado"])
+                            A.ver_perfil(usuario.get_id_empleado())
                         elif accion == "2":
-                            A.editar_perfil(usuario["id_empleado"])
+                            A.editar_perfil(usuario.get_id_empleado())
                         elif accion == "3":
                             break
                         else:
@@ -51,6 +51,7 @@ def main():
                             
                 elif accion == "3":
                     while True:
+                        print("Que desea hacer?")
                         print_opciones(["Crear departamento","Mostrar departamentos","Editar departamento","Eliminar departamento","Salir"])
                         accion = input("> ")
                         if accion == "1":
