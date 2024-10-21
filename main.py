@@ -13,13 +13,28 @@ def main():
             if usuario["nivel_acceso"] == "administrador":
                 print(f" >> Bienvenido {usuario['nombre']} {usuario['apellido_paterno']}! <<")
                 print(" Que desea hacer a continuación?")
-                print_opciones(["Empleados", "Departamentos", "Cerrar sesión", "Salir"])
+                opciones = ["Perfil","Empleados", "Departamentos", "Cerrar sesión", "Salir"]
+                print_opciones(opciones)
                 accion = input("> ")
                 
                 if accion == "1":
                     while True:
                         print("Que desea hacer?")
-                        print_opciones(["Registrar empleado","Mostrar empleados","Editar empleado","Eliminar empleado/s","Salir","Prueba editar perfil"])
+                        print_opciones(["Mostrar perfil","Editar perfil","Salir"])
+                        accion = input("> ")
+                        if accion == "1":
+                            A.ver_perfil(usuario["id_empleado"])
+                        elif accion == "2":
+                            A.editar_perfil(usuario["id_empleado"])
+                        elif accion == "3":
+                            break
+                        else:
+                            print("Porfavor seleccione una opcion valida")
+                
+                if accion == "2":
+                    while True:
+                        print("Que desea hacer?")
+                        print_opciones(["Registrar empleado","Mostrar empleados","Editar empleado","Eliminar empleado/s","Salir"])
                         accion = input("> ")
                         if accion == "1":
                             A.registrarEmpleado()
@@ -31,12 +46,10 @@ def main():
                             A.eliminar_empleado()
                         elif accion == "5":
                             break
-                        elif accion == "6":
-                            A.editar_perfil(usuario["id_empleado"]) #prueba editar perfil
                         else:
                             print("Porfavor seleccione una opcion valida")
                             
-                elif accion == "2":
+                elif accion == "3":
                     while True:
                         print_opciones(["Crear departamento","Mostrar departamentos","Editar departamento","Eliminar departamento","Salir"])
                         accion = input("> ")
@@ -53,11 +66,11 @@ def main():
                         else:
                             print("Porfavor seleccione una opcion valida")
                         
-                elif accion == "3":
+                elif accion == "4":
                     print("Cerrando sesión...")
                     sesion = False
                     
-                elif accion == "4":
+                elif accion == "5":
                     print("Finalizando el programa...")
                     conexion.disconnect()
                     sesion = False

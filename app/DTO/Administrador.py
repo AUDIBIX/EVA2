@@ -1,10 +1,7 @@
 from app.DTO.Persona import Persona
-from app.DTO.Empleado import Empleado
 from app.DTO.Departamento import Departamento
-from app.DAO.ingresar_dao import ingresar_empleado,ingresar_departamento
-from app.DAO.editar_dao import editar_departamento
-from app.DAO.obtener_dao import obtener_departamentos,obtener_informacion_departamento,obtener_gerentes,obtener_empleados
-from app.DAO.eliminar_dao import eliminar_usuario
+from app.DAO.crud_empleados import ingresar_empleado,obtener_empleados,obtener_gerentes,eliminar_usuario
+from app.DAO.crud_departamentos import ingresar_departamento,obtener_departamentos,obtener_un_departamento,editar_departamento
 from app.DTO.Utiles import print_opciones
 from random import randint
 from pandas import DataFrame
@@ -129,7 +126,7 @@ class Administrador(Persona):
         id_departamento = input("Ingrese el ID\n> ")
         
         while True:
-            if depto := obtener_informacion_departamento(id_departamento):
+            if depto := obtener_un_departamento(id_departamento):
                 print(f" >> Departamento {depto["Nombre"]} <<")
                 for key,item in depto.items():
                     print(f"{key}: {item}")

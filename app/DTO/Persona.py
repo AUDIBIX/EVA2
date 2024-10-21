@@ -1,7 +1,8 @@
-from app.DAO.obtener_dao import obtener_un_empleado,verificar_login
+from app.DAO.otros_dao import verificar_login
+from app.DAO.crud_empleados import obtener_un_empleado
 from pandas import DataFrame as DF
 from app.DTO.Utiles import print_opciones
-from app.DAO.editar_dao import editar_usuario,editar_psw
+from app.DAO.crud_empleados import editar_usuario, editar_psw
 
 class Persona:
     def __init__(self,id_empleado,nombre,apellido_paterno,apellido_materno,rut,direccion,numero_telefonico,email,fecha_inicio_contrato,salario:int,nivel_acceso,password):
@@ -79,21 +80,21 @@ class Persona:
 
     def ver_perfil(id_usuario):
         try:
-            tipo_usuario = obtener_un_empleado(id_usuario)
+            datos_usuario = obtener_un_empleado(id_usuario)
             
-            if tipo_usuario is None:
+            if datos_usuario is None:
                 print("Usuario no encontrado.")
                 return
 
             print(">>Perfil de Empleado<<")
 
             data_del_perfil = {
-                'Nnombre': f"{tipo_usuario["nombre"]} {tipo_usuario["apellido_paterno"]} {tipo_usuario["apellido_materno"]}",
-                'Direccion': f"{tipo_usuario["direccion"]}",
-                'Telefono': f"{tipo_usuario["fono"]}",
-                'Inicio De Contrato': f"{tipo_usuario["fecha_inicio_contrato"]}",
-                'Rol': f"{tipo_usuario["nivel_acceso"]}",
-                'Id del Departamento': f"{tipo_usuario["id_departamento"]}"
+                'Nombre': f"{datos_usuario["nombre"]} {datos_usuario["apellido_paterno"]} {datos_usuario["apellido_materno"]}",
+                'Direccion': f"{datos_usuario["direccion"]}",
+                'Telefono': f"{datos_usuario["fono"]}",
+                'Inicio De Contrato': f"{datos_usuario["fecha_inicio_contrato"]}",
+                'Rol': f"{datos_usuario["nivel_acceso"]}",
+                'Id del Departamento': f"{datos_usuario["id_departamento"]}"
             }
 
             print (DF([data_del_perfil]))  # Lista de un solo diccionario
@@ -106,13 +107,13 @@ class Persona:
 
     def editar_perfil(id_empleado): #contraseña,direccion,fono
         try:
-            tipo_usuario = obtener_un_empleado(id_empleado)
+            datos_usuario = obtener_un_empleado(id_empleado)
             
-            if tipo_usuario is None:
+            if datos_usuario is None:
                 print("Usuario no encontrado.")
                 return
             
-            print(f"Que datos desea Modificar >>{tipo_usuario["nombre"]} {tipo_usuario["apellido_paterno"]} {tipo_usuario["apellido_materno"]}<<")
+            print(f"Que datos desea Modificar >>{datos_usuario["nombre"]} {datos_usuario["apellido_paterno"]} {datos_usuario["apellido_materno"]}<<")
 
             print_opciones(["Contraseña","Direccion","Telefono"])
             question = input("> ")
@@ -146,7 +147,7 @@ class Persona:
 
 
             elif question == '2':
-                print(f"Dirección actual: >>{tipo_usuario['direccion']}<<")
+                print(f"Dirección actual: >>{datos_usuario['direccion']}<<")
 
                 nueva_direccion = input("Ingrese nueva dirección:\n> ")
 
@@ -155,7 +156,7 @@ class Persona:
 
 
             elif question == '3':
-                print(f"Teléfono actual: >>{tipo_usuario['fono']}<<")
+                print(f"Teléfono actual: >>{datos_usuario['fono']}<<")
 
                 nuevo_telefono = input("Ingrese nuevo teléfono:\n> ")
 
