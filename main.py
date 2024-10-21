@@ -1,6 +1,7 @@
 from app.DTO.main_dto import login
 from app.DTO.Administrador import Administrador as A
 from app.DTO.Gerente import Gerente as G
+from app.DTO.Empleado import Empleado as E
 from app.DAO.DB import conexion
 from app.DTO.Utiles import print_opciones
 
@@ -86,15 +87,18 @@ def main():
                 accion = input("> ")
                 
                 if accion == "1":
-                    print_opciones(["Mostrar perfil","Editar perfil","Salir"])
-                    if accion == "1":
-                        G.ver_perfil(usuario.get_id_empleado())
-                    elif accion == "2":
-                        G.editar_perfil(usuario.get_id_empleado())
-                    elif accion == "3":
-                        break
-                    else:
-                        print("Porfavor selecccione una opcion valida")
+                    while True:
+                        print("Que desea hacer?")
+                        print_opciones(["Mostrar perfil","Editar perfil","Salir"])
+                        accion = input("> ")
+                        if accion == "1":
+                            A.ver_perfil(usuario.get_id_empleado())
+                        elif accion == "2":
+                            A.editar_perfil(usuario.get_id_empleado())
+                        elif accion == "3":
+                            break
+                        else:
+                            print("Porfavor seleccione una opcion valida")
                 
                 elif accion == "2":
                     G.levantarSolicitudEmpleadoDepartamento()
@@ -102,10 +106,50 @@ def main():
                     G.designarEmpleadoProyecto()
                 elif accion == "4":
                     G.editarProyecto()
+                    
                 elif accion == "5":
-                    break
+                    print("Cerrando sesión...")
+                    sesion = False
+                
+                elif accion == "6":
+                    print("Finalizando el programa...")
+                    conexion.disconnect()
+                    sesion = False
+                    programa = False
+                    
                 else:
                     print("Seleccione una opcion valida")
+                
+            elif usuario.get_nivel_acceso() == "empleado":
+                print("Que desea hacer?")
+                print_opciones(["Perfil","Crear registro","Cerrar sesion","Salir"])
+                accion = input("> ")
+                
+                if accion == "1":
+                    while True:
+                        print("Que desea hacer?")
+                        print_opciones(["Ver perfil","Modificar perfil","Salir"])
+                        accion == input("> ")
+                        if accion == "1":
+                            E.ver_perfil()
+                        elif accion == "2":
+                            E.editar_perfil()
+                        elif accion == "3":
+                            break
+                    
+                elif accion == "2":
+                    E.crearRegistroDeTiempo()    
+                
+                elif accion == "3":
+                    print("Cerrando sesión...")
+                    sesion = False
+                
+                elif accion == "4":
+                    print("Finalizando el programa...")
+                    conexion.disconnect()
+                    sesion = False
+                    programa = False
+                    
                 
     
 main()
