@@ -20,19 +20,27 @@ class Administrador(Persona):
         rut = input("Ingrese rut:\n> ")
         email = f"{nombre.lower()}.{apellido_paterno.lower()}{randint(0,99)}@ecotech.cl"
         salario = input("Ingrese salario:\n> ")
-        question = input("Desea asignar el nivel de acceso? s/n\n> ")
-        if question == "s":
+        
+
+        ##REVISAR EL WHILE
+        while True:
             print("Ingrese el nivel de acceso:")
             print_opciones(["Empleado","Gerente","Administrador"])
             question = input("> ")
             if question == "1":
                 nivel_acceso = "empleado"
+                break
             elif question == "2":
                 nivel_acceso = "gerente"
+                break
             elif question == "3":
                 nivel_acceso = "administrador"
-        else:
-            nivel_acceso = "empleado"
+                break
+            else:
+                print("seleccion incorrecta")
+
+            
+        
         question = input("Desea agregar una dirección? s/n\n> ")
         direccion = "Null"
         if question == "s":
