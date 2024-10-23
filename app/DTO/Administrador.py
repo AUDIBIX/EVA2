@@ -183,7 +183,6 @@ class Administrador(Persona):
         id_depto = input("Seleccione el ID del departamento para crear el Proyecto\n > ")
 
         print(">> Creacion de Proyecto <<")
-        id_depto = None
         nombre = input("Ingrese nombre:\n> ")
         descripcion = input("Ingrese descripcion:\n> ")
         print("Ingrese el estado inicial del proyecto:")

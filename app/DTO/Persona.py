@@ -1,7 +1,6 @@
-from app.DAO.otros_dao import verificar_login
 from app.DAO.crud_empleados import obtener_un_empleado
 from pandas import DataFrame as DF
-from app.DTO.Utiles import print_opciones
+from app.DTO.Utiles import print_opciones,verificar_login
 from app.DAO.crud_empleados import editar_usuario, editar_psw
 
 class Persona:

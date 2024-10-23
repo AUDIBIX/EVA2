@@ -11,3 +11,15 @@ class Empleado(Persona):
 
     def crearRegistroDeTiempo(self,cantidad_horas,descripcion):
         pass
+    
+    def ver_registros():
+        pass
+    
+    def ver_un_registro():
+        pass
+    
+    def editar_registro():
+        pass
+    
+    def eliminar_registro():
+        pass
